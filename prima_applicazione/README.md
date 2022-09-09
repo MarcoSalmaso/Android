@@ -4,5 +4,5 @@ Prima applicazione Flutter che riceve da utente la base e con il pulsante elevi 
 
 # Cose apprese
 - Utilizzo di variabili
-- Utilizzo di Text, Scaffold, AppBar, Icons, TextField, SizedBox,FloatingActionButton
+- Utilizzo di Text, Scaffold, AppBar, Icons, TextField, SizedBox, FloatingActionButton
 - Gerarchia Child, Children
