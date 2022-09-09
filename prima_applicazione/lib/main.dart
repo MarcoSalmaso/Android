@@ -49,7 +49,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final int _var = 2;
+  int _var = 2;
   int _counter = 2;
   int _pot = 1;
 
@@ -69,6 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
   // ignore: unused_element
   void _resetCounter() {
     setState(() {
+      _var = 2;
       _counter = 2;
       _pot = 1;
     });
@@ -83,11 +84,17 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
+      bottomNavigationBar: BottomAppBar(
+        shape: const CircularNotchedRectangle(),
+        color: const Color.fromARGB(255, 250, 70, 5),
+        child: Container(height: 50.0),
+      ),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         // ignore: prefer_const_constructors
-        title: Text('Potenze di 2'),
+        title: Text('Elevamento a potenza'),
         // ignore: prefer_const_constructors
         leading: Icon(
           Icons.calculate_outlined,
@@ -129,8 +136,29 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            SizedBox(
+              width: 180,
+              height: 150,
+              // ignore: prefer_const_constructors
+              child: TextField(
+                style: const TextStyle(
+                    fontSize: 15.0, height: 2.0, color: Colors.black),
+                decoration: const InputDecoration(
+                  labelText: "Inserisci un numero",
+                  border: OutlineInputBorder(),
+                ),
+                keyboardType: TextInputType.number,
+                onChanged: (value) {
+                  setState(() {
+                    _pot = 1;
+                    _var = int.parse(value);
+                    _counter = _var;
+                  });
+                },
+              ),
+            ),
             Text(
-              '2 elevato a $_pot',
+              '$_var elevato a $_pot',
               // ignore: prefer_const_constructors
               style: TextStyle(
                 color: Colors.black,
@@ -152,6 +180,7 @@ class _MyHomePageState extends State<MyHomePage> {
         tooltip: 'Incrementa',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
