@@ -168,170 +168,190 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               // ignore: prefer_const_literals_to_create_immutables
               children: [
-                CalculatorButton(
+                Expanded(
+                    child: CalculatorButton(
                   text: 'AC',
                   fillColor: 0xFFFFFFFF,
                   textColor: 0xFF000000,
                   textSize: 22,
                   callback: btnOnCLick,
-                ),
-                CalculatorButton(
+                )),
+                Expanded(
+                    child: CalculatorButton(
                   text: 'C',
                   fillColor: 0xFFFFFFFF,
                   textColor: 0xFF000000,
                   textSize: 24,
                   callback: btnOnCLick,
-                ),
-                CalculatorButton(
+                )),
+                Expanded(
+                    child: CalculatorButton(
                   text: '<',
                   fillColor: 0xFFf4d160,
                   textColor: 0xFF000000,
                   textSize: 24,
                   callback: btnOnCLick,
-                ),
-                CalculatorButton(
+                )),
+                Expanded(
+                    child: CalculatorButton(
                   text: '/',
                   fillColor: 0xFFf4d160,
                   textColor: 0xFF000000,
                   textSize: 24,
                   callback: btnOnCLick,
-                ),
+                )),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               // ignore: prefer_const_literals_to_create_immutables
               children: [
-                CalculatorButton(
+                Expanded(
+                    child: CalculatorButton(
                   text: '7',
                   fillColor: 0xFFFFFFFF,
                   textColor: 0xFF000000,
                   textSize: 24,
                   callback: btnOnCLick,
-                ),
-                CalculatorButton(
+                )),
+                Expanded(
+                    child: CalculatorButton(
                   text: '8',
                   fillColor: 0xFFFFFFFF,
                   textColor: 0xFF000000,
                   textSize: 24,
                   callback: btnOnCLick,
-                ),
-                CalculatorButton(
+                )),
+                Expanded(
+                    child: CalculatorButton(
                   text: '9',
                   fillColor: 0xFFFFFFFF,
                   textColor: 0xFF000000,
                   textSize: 24,
                   callback: btnOnCLick,
-                ),
-                CalculatorButton(
+                )),
+                Expanded(
+                    child: CalculatorButton(
                   text: 'X',
                   fillColor: 0xFFf4d160,
                   textColor: 0xFF000000,
                   textSize: 24,
                   callback: btnOnCLick,
-                ),
+                )),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               // ignore: prefer_const_literals_to_create_immutables
               children: [
-                CalculatorButton(
+                Expanded(
+                    child: CalculatorButton(
                   text: '6',
                   fillColor: 0xFFFFFFFF,
                   textColor: 0xFF000000,
                   textSize: 24,
                   callback: btnOnCLick,
-                ),
-                CalculatorButton(
+                )),
+                Expanded(
+                    child: CalculatorButton(
                   text: '5',
                   fillColor: 0xFFFFFFFF,
                   textColor: 0xFF000000,
                   textSize: 24,
                   callback: btnOnCLick,
-                ),
-                CalculatorButton(
+                )),
+                Expanded(
+                    child: CalculatorButton(
                   text: '4',
                   fillColor: 0xFFFFFFFF,
                   textColor: 0xFF000000,
                   textSize: 24,
                   callback: btnOnCLick,
-                ),
-                CalculatorButton(
+                )),
+                Expanded(
+                    child: CalculatorButton(
                   text: '-',
                   fillColor: 0xFFf4d160,
                   textColor: 0xFF000000,
                   textSize: 24,
                   callback: btnOnCLick,
-                ),
+                )),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               // ignore: prefer_const_literals_to_create_immutables
               children: [
-                CalculatorButton(
+                Expanded(
+                    child: CalculatorButton(
                   text: '3',
                   fillColor: 0xFFFFFFFF,
                   textColor: 0xFF000000,
                   textSize: 24,
                   callback: btnOnCLick,
-                ),
-                CalculatorButton(
+                )),
+                Expanded(
+                    child: CalculatorButton(
                   text: '2',
                   fillColor: 0xFFFFFFFF,
                   textColor: 0xFF000000,
                   textSize: 24,
                   callback: btnOnCLick,
-                ),
-                CalculatorButton(
+                )),
+                Expanded(
+                    child: CalculatorButton(
                   text: '1',
                   fillColor: 0xFFFFFFFF,
                   textColor: 0xFF000000,
                   textSize: 24,
                   callback: btnOnCLick,
-                ),
-                CalculatorButton(
+                )),
+                Expanded(
+                    child: CalculatorButton(
                   text: '+',
                   fillColor: 0xFFf4d160,
                   textColor: 0xFF000000,
                   textSize: 24,
                   callback: btnOnCLick,
-                ),
+                )),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               // ignore: prefer_const_literals_to_create_immutables
               children: [
-                CalculatorButton(
+                Expanded(
+                    child: CalculatorButton(
                   text: '+/-',
                   fillColor: 0xFFFFFFFF,
                   textColor: 0xFF000000,
                   textSize: 22,
                   callback: btnOnCLick,
-                ),
-                CalculatorButton(
+                )),
+                Expanded(
+                    child: CalculatorButton(
                   text: '0',
                   fillColor: 0xFFFFFFFF,
                   textColor: 0xFF000000,
                   textSize: 24,
                   callback: btnOnCLick,
-                ),
-                CalculatorButton(
+                )),
+                Expanded(
+                    child: CalculatorButton(
                   text: '00',
                   fillColor: 0xFFFFFFFF,
                   textColor: 0xFF000000,
                   textSize: 24,
                   callback: btnOnCLick,
-                ),
-                CalculatorButton(
+                )),
+                Expanded(
+                    child: CalculatorButton(
                   text: '=',
                   fillColor: 0xFFf4d160,
                   textColor: 0xFF000000,
                   textSize: 24,
                   callback: btnOnCLick,
-                ),
+                )),
               ],
             ),
           ],
