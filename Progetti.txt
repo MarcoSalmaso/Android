@@ -1,0 +1,19 @@
+FACILE
+Todo
+Calcolatrice
+Gioco dell'impiccato
+Tris
+Calcolatore massa corporea
+
+INTERMEDIO
+App delle abitudini
+Clone Candy Crush
+Clone Netflix
+App e-commerce
+
+AVANZATO
+Clone Instagram
+Clone Chrome
+Clone Tik-Tok
+Lettore podcast
+App e-book
