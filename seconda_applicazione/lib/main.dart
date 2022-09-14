@@ -54,7 +54,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   late int firstNum;
   late int secondNum;
-  late String history = '0';
+  late String history = '';
   late String textToDisplay = '0';
   late String res;
   late String operation;
@@ -70,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
       firstNum = 0;
       secondNum = 0;
       res = '0';
-      history = '0';
+      history = '';
     } else if (btnVal == '+/-') {
       if (textToDisplay[0] != '-') {
         res = '-' + textToDisplay;
@@ -110,6 +110,14 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     } else {
       res = int.parse(textToDisplay + btnVal).toString();
+    }
+
+    if (btnVal != 'AC' &&
+        btnVal != 'C' &&
+        btnVal != '<' &&
+        btnVal != '=' &&
+        btnVal != '+/-') {
+      history += btnVal.toString();
     }
 
     setState(() {
