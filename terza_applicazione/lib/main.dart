@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers
 
 import 'package:flutter/material.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 
 void main() {
   runApp(const MyApp());
@@ -54,7 +55,8 @@ class _MyHomePageState extends State<MyHomePage> {
   double peso = 0;
   double altezza = 0;
   double imc = 0;
-  String descrizione = '';
+  String descrizione = 'Il tuo stato:';
+  double perc = 0;
 
   void _reset() {
     setState(() {
@@ -62,6 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
       altezza = 0;
       imc = 0;
       descrizione = '';
+      perc = 0;
     });
   }
 
@@ -79,6 +82,15 @@ class _MyHomePageState extends State<MyHomePage> {
         descrizione = 'Obesità';
       } else {
         descrizione = 'Estrema obesità';
+      }
+      // ignore: unused_local_variable
+      double calc = (imc - 18.5) / 22.5;
+      if (calc > 1) {
+        perc = 1.0;
+      } else if (calc < 0) {
+        perc = 0.0;
+      } else {
+        perc = calc;
       }
     });
   }
@@ -106,10 +118,17 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Container(
+              padding: EdgeInsets.only(top: 30),
               child: Text(
                 // ignore: prefer_interpolation_to_compose_strings
-                'IMC: ' + imc.toStringAsFixed(1),
-                style: TextStyle(fontSize: 30, fontStyle: FontStyle.italic),
+                imc.toStringAsFixed(1),
+                style: TextStyle(
+                    fontSize: 40,
+                    fontStyle: FontStyle.italic,
+                    fontWeight: FontWeight.bold,
+                    foreground: Paint()
+                      ..style = PaintingStyle.fill
+                      ..color = Colors.black),
               ),
             ),
             Row(
@@ -119,20 +138,42 @@ class _MyHomePageState extends State<MyHomePage> {
                 Expanded(
                     child: Text(descrizione,
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 30)))
+                        style: TextStyle(fontSize: 23)))
               ],
             ),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+              Padding(
+                padding: EdgeInsets.only(bottom: 70),
+                child: LinearPercentIndicator(
+                  width: MediaQuery.of(context).size.width - 230,
+                  animation: true,
+                  animationDuration: 1000,
+                  lineHeight: 15.0,
+                  progressColor: Colors.red,
+                  percent: perc,
+                  barRadius: const Radius.circular(16),
+                  // ignore: prefer_interpolation_to_compose_strings
+                  center: Text((perc * 100).toInt().toString() + '%'),
+                  leading: Text("Sottopeso (18.5)",
+                      style: TextStyle(color: Colors.black.withOpacity(0.6))),
+                  trailing: Text("Obesità (40)",
+                      style: TextStyle(color: Colors.black.withOpacity(0.6))),
+                ),
+              )
+            ]),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               // ignore: prefer_const_literals_to_create_immutables
               children: [
                 Text(
                   'Peso: $peso',
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(
+                      fontSize: 20, color: Colors.black.withOpacity(0.6)),
                 ),
                 Text(
                   'Altezza: $altezza',
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(
+                      fontSize: 20, color: Colors.black.withOpacity(0.6)),
                 ),
               ],
             ),
@@ -149,7 +190,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     keyboardType: TextInputType.number,
                     decoration:
                         const InputDecoration(labelText: "Peso (in kg)"),
-                    onSubmitted: (value) {
+                    onChanged: (value) {
                       setState(() {
                         peso = double.parse(value);
                       });
@@ -171,7 +212,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     keyboardType: TextInputType.number,
                     decoration:
                         const InputDecoration(labelText: "Altezza (in metri)"),
-                    onSubmitted: (value) {
+                    onChanged: (value) {
                       setState(() {
                         altezza = double.parse(value);
                       });
