@@ -30,6 +30,9 @@ dependencies:
   flutter:
     sdk: flutter
   percent_indicator: ^4.0.1
+  kdgaugeview: ^1.0.4
+  syncfusion_flutter_gauges: ^20.2.49
+
 
 
   # The following adds the Cupertino Icons font to your application.

@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers
 
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 void main() {
   runApp(const MyApp());
@@ -104,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      backgroundColor: Colors.red[50],
+      backgroundColor: Colors.red[20],
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
@@ -117,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Container(
+            /*Container(
               padding: EdgeInsets.only(top: 30),
               child: Text(
                 // ignore: prefer_interpolation_to_compose_strings
@@ -130,21 +130,65 @@ class _MyHomePageState extends State<MyHomePage> {
                       ..style = PaintingStyle.fill
                       ..color = Colors.black),
               ),
-            ),
+            ),*/
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               // ignore: prefer_const_literals_to_create_immutables
               children: [
-                Expanded(
-                    child: Text(descrizione,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 23)))
+                Padding(
+                  padding: EdgeInsets.only(top: 20),
+                  child: Text(descrizione,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 23)),
+                )
               ],
             ),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-              Padding(
-                padding: EdgeInsets.only(bottom: 70),
-                child: LinearPercentIndicator(
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Container(
+                  width: 300,
+                  height: 300,
+                  padding: EdgeInsets.all(10),
+                  child: SfRadialGauge(
+                    axes: <RadialAxis>[
+                      RadialAxis(
+                          minimum: 10,
+                          maximum: 60,
+                          pointers: <GaugePointer>[
+                            NeedlePointer(value: imc)
+                          ],
+                          annotations: [
+                            GaugeAnnotation(
+                                widget: Container(
+                                    child: Text(imc.toStringAsFixed(1),
+                                        style: TextStyle(
+                                            fontSize: 25,
+                                            fontWeight: FontWeight.bold))),
+                                angle: 90,
+                                positionFactor: 0.5)
+                          ],
+                          ranges: <GaugeRange>[
+                            GaugeRange(
+                                startValue: 10,
+                                endValue: 18.5,
+                                color: Colors.red,
+                                startWidth: 10,
+                                endWidth: 10),
+                            GaugeRange(
+                                startValue: 18.5,
+                                endValue: 40,
+                                color: Colors.green,
+                                startWidth: 10,
+                                endWidth: 10),
+                            GaugeRange(
+                                startValue: 40,
+                                endValue: 60,
+                                color: Colors.red,
+                                startWidth: 10,
+                                endWidth: 10)
+                          ])
+                    ],
+                  ))
+              /*LinearPercentIndicator(
                   width: MediaQuery.of(context).size.width - 230,
                   animation: true,
                   animationDuration: 1000,
@@ -158,8 +202,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       style: TextStyle(color: Colors.black.withOpacity(0.6))),
                   trailing: Text("Obesità (40)",
                       style: TextStyle(color: Colors.black.withOpacity(0.6))),
-                ),
-              )
+                ),*/
             ]),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
