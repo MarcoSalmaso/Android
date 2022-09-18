@@ -144,10 +144,10 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              // ignore: sized_box_for_whitespace
               Container(
-                  width: 300,
-                  height: 300,
-                  padding: EdgeInsets.all(10),
+                  width: 200,
+                  height: 200,
                   child: SfRadialGauge(
                     axes: <RadialAxis>[
                       RadialAxis(
@@ -188,21 +188,6 @@ class _MyHomePageState extends State<MyHomePage> {
                           ])
                     ],
                   ))
-              /*LinearPercentIndicator(
-                  width: MediaQuery.of(context).size.width - 230,
-                  animation: true,
-                  animationDuration: 1000,
-                  lineHeight: 15.0,
-                  progressColor: Colors.red,
-                  percent: perc,
-                  barRadius: const Radius.circular(16),
-                  // ignore: prefer_interpolation_to_compose_strings
-                  center: Text((perc * 100).toInt().toString() + '%'),
-                  leading: Text("Sottopeso (18.5)",
-                      style: TextStyle(color: Colors.black.withOpacity(0.6))),
-                  trailing: Text("Obesità (40)",
-                      style: TextStyle(color: Colors.black.withOpacity(0.6))),
-                ),*/
             ]),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -221,7 +206,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.center,
               // ignore: prefer_const_literals_to_create_immutables
               children: [
                 SizedBox(
@@ -243,7 +228,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.center,
               // ignore: prefer_const_literals_to_create_immutables
               children: [
                 SizedBox(
