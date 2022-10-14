@@ -1,178 +1,131 @@
-// ignore_for_file: avoid_unnecessary_containers, avoid_print, unnecessary_new, prefer_const_constructors, duplicate_ignore, unnecessary_string_interpolations, prefer_collection_literals, iterable_contains_unrelated_type, unrelated_type_equality_checks, list_remove_unrelated_type
-import 'package:flutter/material.dart';
-import './widgets/todo.dart';
+// ignore_for_file: prefer_typing_uninitialized_variables, use_key_in_widget_constructors, unnecessary_new, library_private_types_in_public_api, prefer_const_constructors
 
-void main() {
-  runApp(const MyApp());
+import 'package:flutter/material.dart';
+
+class Todo {
+  Todo({required this.name, required this.checked});
+  final String name;
+  bool checked;
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class TodoItem extends StatelessWidget {
+  TodoItem({
+    required this.todo,
+    required this.onTodoChanged,
+  }) : super(key: ObjectKey(todo));
 
-  // This widget is the root of your application.
+  final Todo todo;
+  final onTodoChanged;
+
+  TextStyle? _getTextStyle(bool checked) {
+    if (!checked) return null;
+
+    // ignore: prefer_const_constructors
+    return TextStyle(
+      color: Colors.black54,
+      decoration: TextDecoration.lineThrough,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Todo App',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
+    return ListTile(
+      onTap: () {
+        onTodoChanged(todo);
+      },
+      leading: CircleAvatar(
+        child: Text(todo.name[0]),
       ),
-      home: const MyHomePage(title: 'Todo App'),
+      title: Text(todo.name, style: _getTextStyle(todo.checked)),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
+class TodoList extends StatefulWidget {
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  _TodoListState createState() => new _TodoListState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  final List<Todo> entries = <Todo>[
-    Todo(text: 'ciao'),
-    Todo(text: 'Paolo'),
-    Todo(text: 'fare la cacca'),
-    Todo(text: 'Uccidere dei conigli')
-  ];
-  String text = '';
+class _TodoListState extends State<TodoList> {
+  final TextEditingController _textFieldController = TextEditingController();
+  final List<Todo> _todos = <Todo>[];
 
-  void _delete() {
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text('Todo list', style: TextStyle(color: Colors.black)),
+        backgroundColor: Colors.white70,
+      ),
+      backgroundColor: Colors.white10,
+      body: ListView(
+        padding: EdgeInsets.symmetric(vertical: 8.0),
+        children: _todos.map((Todo todo) {
+          return TodoItem(
+            todo: todo,
+            onTodoChanged: _handleTodoChange,
+          );
+        }).toList(),
+      ),
+      floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.white70,
+          onPressed: () => _displayDialog(),
+          tooltip: 'Aggiungi Todo',
+          child: Icon(
+            Icons.add,
+            color: Colors.black,
+          )),
+    );
+  }
+
+  void _handleTodoChange(Todo todo) {
     setState(() {
-      entries.clear();
+      todo.checked = !todo.checked;
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    int lung = entries.length;
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      // ignore: duplicate_ignore
-      appBar: AppBar(
-        backgroundColor: Color.fromRGBO(227, 227, 227, 0.702),
-        // ignore: prefer_const_constructors
-        title: Text(
-          'Todo: $lung',
-          style: const TextStyle(color: Colors.black),
-        ),
-        actions: [
-          IconButton(
-            onPressed: _delete,
-            icon: const Icon(Icons.delete_outline),
-            color: Colors.black,
-            tooltip: 'Elimina',
-          )
-        ],
-      ),
-      body: ListView.separated(
-        padding: EdgeInsets.all(5),
-        itemCount: entries.length,
-        separatorBuilder: (BuildContext context, int index) => const Divider(),
-        itemBuilder: (BuildContext context, int index) {
-          return Container(
-              child: ListTile(
-            title: Text(
-              entries[index].text,
+  void _addTodoItem(String name) {
+    setState(() {
+      _todos.add(Todo(name: name, checked: false));
+    });
+    _textFieldController.clear();
+  }
+
+  Future<void> _displayDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Aggiungi una cosa da fare'),
+          content: TextField(
+            controller: _textFieldController,
+            decoration: const InputDecoration(hintText: 'Scrivi cosa fare'),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Aggiungi'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                _addTodoItem(_textFieldController.text);
+              },
             ),
-            style: ListTileStyle.list,
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(
-                    onPressed: () {
-                      setState(() {
-                        entries.remove(entries[index]);
-                      });
-                    },
-                    icon: const Icon(Icons.delete))
-              ],
-            ),
-          ));
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.white70,
-        focusColor: Color(0xFF85FFD4),
-        onPressed: () {
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                  title: const Text("Cosa devi fare?"),
-                  content: TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Todo',
-                    ),
-                    onChanged: (value) {
-                      setState(() {
-                        text = value;
-                      });
-                    },
-                  ),
-                  actions: [
-                    TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text('Chiudi')),
-                    TextButton(
-                        onPressed: () {
-                          setState(() {
-                            if (text == '') {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content: Text('Devi inserire un testo')));
-                              Navigator.of(context).pop();
-                            } else {
-                              entries.add(Todo(
-                                text: text,
-                              ));
-                              Navigator.of(context).pop();
-                            }
-                          });
-                        },
-                        child: const Text('Aggiungi')),
-                  ],
-                );
-              });
-        },
-        // ignore: sort_child_properties_last
-        child: const Icon(
-          Icons.add,
-          color: Colors.black,
-        ),
-        tooltip: 'Aggiungi Todo',
-      ),
+          ],
+        );
+      },
     );
   }
 }
+
+class TodoApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return new MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Todo App',
+      home: new TodoList(),
+    );
+  }
+}
+
+void main() => runApp(new TodoApp());
